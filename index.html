@@ -119,3 +119,358 @@
     </script>
   </body>
 </html>
+
+<p>
+  The following barchart was created using the same code submitted to ChatGPT5
+</p>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>D3 Bar Chart (CDN)</title>
+    <style>
+      :root {
+        --bg: #0b1220;
+        --card: #111b2e;
+        --text: #e9eefc;
+        --muted: #aab6d6;
+        --grid: rgba(255, 255, 255, 0.1);
+        --bar1: #6ea8ff;
+        --bar2: #7cf0c4;
+        --accent: #9b8cff;
+      }
+      body {
+        margin: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial,
+          sans-serif;
+        background:
+          radial-gradient(
+            1200px 800px at 20% 10%,
+            rgba(155, 140, 255, 0.25),
+            transparent 50%
+          ),
+          radial-gradient(
+            1000px 700px at 90% 30%,
+            rgba(124, 240, 196, 0.18),
+            transparent 55%
+          ),
+          var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        box-sizing: border-box;
+      }
+      .card {
+        width: min(980px, 100%);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.03)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 18px;
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+        padding: 22px 22px 18px;
+        backdrop-filter: blur(10px);
+      }
+      .top {
+        display: flex;
+        gap: 14px;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 18px;
+        letter-spacing: 0.2px;
+        font-weight: 700;
+      }
+      .subtitle {
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.35;
+        max-width: 70ch;
+      }
+      .hint {
+        color: var(--muted);
+        font-size: 12px;
+        margin: 0;
+      }
+      .chart-wrap {
+        background: rgba(17, 27, 46, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 14px;
+      }
+      svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .axis path,
+      .axis line {
+        stroke: rgba(255, 255, 255, 0.22);
+      }
+      .axis text {
+        fill: rgba(233, 238, 252, 0.85);
+        font-size: 12px;
+      }
+      .grid line {
+        stroke: var(--grid);
+      }
+      .grid path {
+        stroke: transparent;
+      }
+      .bar {
+        cursor: pointer;
+      }
+      .bar-label {
+        fill: rgba(233, 238, 252, 0.92);
+        font-size: 12px;
+        font-weight: 600;
+        text-anchor: middle;
+        pointer-events: none;
+      }
+      .tooltip {
+        position: fixed;
+        pointer-events: none;
+        opacity: 0;
+        transform: translate(-50%, calc(-100% - 10px));
+        background: rgba(10, 16, 30, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: var(--text);
+        padding: 10px 10px;
+        border-radius: 10px;
+        box-shadow: 0 14px 50px rgba(0, 0, 0, 0.45);
+        font-size: 12px;
+        line-height: 1.2;
+        transition: opacity 0.12s ease;
+        white-space: nowrap;
+      }
+      .tooltip .k {
+        color: var(--muted);
+        font-weight: 600;
+        margin-right: 6px;
+      }
+      .footer {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--bar1), var(--bar2));
+        box-shadow: 0 0 0 3px rgba(110, 168, 255, 0.15);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="top">
+        <div>
+          <h1>Bar Chart (D3.js via CDN)</h1>
+          <div class="subtitle">
+            Dataset: A=1, B=5, C=8, D=10. Hover a bar to see details.
+          </div>
+        </div>
+        <p class="hint">Responsive SVG • Axes + grid • Tooltip</p>
+      </div>
+
+      <div class="chart-wrap">
+        <svg
+          id="chart"
+          viewBox="0 0 920 460"
+          role="img"
+          aria-label="Bar chart"
+        ></svg>
+      </div>
+
+      <div class="footer">
+        <span class="badge"
+          ><span class="dot"></span> Bars use a subtle gradient fill</span
+        >
+        <span class="badge">Max value scales to data</span>
+      </div>
+    </div>
+
+    <div id="tooltip" class="tooltip"></div>
+
+    <!-- D3.js loaded from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+    <script>
+      // Dataset (as requested)
+      const data = [
+        { name: "A", value: 1 },
+        { name: "B", value: 5 },
+        { name: "C", value: 8 },
+        { name: "D", value: 10 },
+      ];
+
+      const svg = d3.select("#chart");
+
+      const width = 920;
+      const height = 460;
+
+      const margin = { top: 30, right: 24, bottom: 56, left: 62 };
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
+
+      const g = svg
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      // Scales
+      const x = d3
+        .scaleBand()
+        .domain(data.map((d) => d.name))
+        .range([0, innerWidth])
+        .padding(0.22);
+
+      const y = d3
+        .scaleLinear()
+        .domain([0, d3.max(data, (d) => d.value)])
+        .nice()
+        .range([innerHeight, 0]);
+
+      // Gridlines
+      g.append("g")
+        .attr("class", "grid")
+        .call(d3.axisLeft(y).ticks(6).tickSize(-innerWidth).tickFormat(""))
+        .selectAll("line")
+        .attr("stroke-linecap", "round");
+
+      // Axes
+      g.append("g")
+        .attr("class", "axis")
+        .attr("transform", `translate(0,${innerHeight})`)
+        .call(d3.axisBottom(x));
+
+      g.append("g").attr("class", "axis").call(d3.axisLeft(y).ticks(6));
+
+      // Gradient for bars
+      const defs = svg.append("defs");
+      const grad = defs
+        .append("linearGradient")
+        .attr("id", "barGradient")
+        .attr("x1", "0%")
+        .attr("y1", "100%")
+        .attr("x2", "0%")
+        .attr("y2", "0%");
+
+      grad
+        .append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", "#6ea8ff")
+        .attr("stop-opacity", 0.95);
+      grad
+        .append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", "#7cf0c4")
+        .attr("stop-opacity", 0.95);
+
+      // Tooltip
+      const tooltip = d3.select("#tooltip");
+
+      function showTooltip(event, d) {
+        tooltip
+          .style("opacity", 1)
+          .html(
+            `<span class="k">Name:</span>${d.name}<br/><span class="k">Value:</span>${d.value}`,
+          );
+        moveTooltip(event);
+      }
+      function moveTooltip(event) {
+        tooltip
+          .style("left", event.clientX + "px")
+          .style("top", event.clientY + "px");
+      }
+      function hideTooltip() {
+        tooltip.style("opacity", 0);
+      }
+
+      // Bars
+      const bars = g
+        .selectAll(".bar")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", (d) => x(d.name))
+        .attr("y", y(0))
+        .attr("width", x.bandwidth())
+        .attr("height", 0)
+        .attr("rx", 10)
+        .attr("fill", "url(#barGradient)")
+        .attr("stroke", "rgba(255,255,255,.18)")
+        .attr("stroke-width", 1)
+        .on("mousemove", (event, d) => {
+          showTooltip(event, d);
+        })
+        .on("mouseenter", (event, d) => {
+          showTooltip(event, d);
+        })
+        .on("mouseleave", hideTooltip);
+
+      // Value labels
+      const labels = g
+        .selectAll(".bar-label")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "bar-label")
+        .attr("x", (d) => x(d.name) + x.bandwidth() / 2)
+        .attr("y", y(0) - 8)
+        .text((d) => d.value)
+        .style("opacity", 0);
+
+      // Animate in
+      bars
+        .transition()
+        .duration(900)
+        .ease(d3.easeCubicOut)
+        .attr("y", (d) => y(d.value))
+        .attr("height", (d) => innerHeight - y(d.value));
+
+      labels
+        .transition()
+        .delay(350)
+        .duration(700)
+        .ease(d3.easeCubicOut)
+        .attr("y", (d) => y(d.value) - 8)
+        .style("opacity", 1);
+
+      // Responsive tooltip tracking
+      window.addEventListener("mousemove", (e) => {
+        if (+tooltip.style("opacity") > 0) moveTooltip(e);
+      });
+    </script>
+  </body>
+</html>
